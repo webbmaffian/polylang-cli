@@ -377,6 +377,38 @@ class PostCommand extends BaseCommand {
             }
         }
     }
+    
+    /**
+     * Syncs a post to all languages.
+     *
+     * Syncs metadata and taxonomy terms, based on Polylang settings. Run `wp pll option list` to inspect current settings.
+     *
+     * ## OPTIONS
+     *
+     * <post_id>
+     * : Post ID of the post to duplicate. Required.
+     *
+     * ## EXAMPLES
+     *
+     *     # Sync post 23 (Dutch) to all languages (German and Spanish)
+     *     $ wp pll post sync 23
+     */
+    public function sync( $args, $assoc_args ) {
+
+        list( $post_id ) = $args;
+        
+        if(!is_numeric($post_id)) {
+            $this->cli->error('Post ID is not numeric: ' . $post_id);
+        }
+        
+        $pll_sync_post = new \PLL_Sync_Post($this->pll);
+        
+        $this->cli->log(sprintf('Syncing post %d to all languages.', $post_id));
+        
+        $pll_sync_post->sync_posts($post_id, false);
+        
+        $this->cli->success(sprintf('Post %d synced successfully.', $post_id));
+    }
 
     /**
      * Count posts for a language.
