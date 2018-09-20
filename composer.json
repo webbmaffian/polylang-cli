@@ -82,7 +82,8 @@
             "pll term duplicate",
             "pll term delete",
             "pll term list",
-            "pll term generate"
+            "pll term generate",
+            "pll product sync"
         ],
         "readme": {
             "sections": [

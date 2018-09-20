@@ -44,6 +44,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
     require __DIR__ . '/src/Commands/Plugin.php';
     require __DIR__ . '/src/Commands/Menu.php';
     require __DIR__ . '/src/Commands/String.php';
+    require __DIR__ . '/src/Commands/Product.php';
 
     WP_CLI::add_hook( 'before_wp_load', function() {
 
@@ -83,5 +84,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
     WP_CLI::add_command( 'pll string',    Polylang_CLI\Commands\StringCommand::class );
     WP_CLI::add_command( 'pll taxonomy',  Polylang_CLI\Commands\TaxonomyCommand::class );
     WP_CLI::add_command( 'pll term',      Polylang_CLI\Commands\TermCommand::class );
+    WP_CLI::add_command( 'pll product',      Polylang_CLI\Commands\ProductCommand::class );
 
 }
