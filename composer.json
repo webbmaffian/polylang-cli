@@ -64,6 +64,7 @@
             "pll post update",
             "pll post delete",
             "pll post duplicate",
+            "pll post sync",
             "pll post list",
             "pll post-type",
             "pll post-type disable",
