@@ -30,7 +30,7 @@ class ProductCommand extends BaseCommand {
      *     $ wp pll product sync 23
      */
     public function sync( $args, $assoc_args ) {
-        global $wp_filter;
+        global $wpdb;
 
 		$post_id = array_shift($args);
 		$selected_languages = $args;
@@ -49,6 +49,16 @@ class ProductCommand extends BaseCommand {
 			$this->cli->error(sprintf('Post %d nis not a product.', $post_id));
 		}
 
+        if(!function_exists('PLLWC')) {
+            $this->cli->error('Missing function PLLWC.');
+        }
+
+        PLLWC();
+        
+        if(!class_exists('PLLWC_Admin_Products')) {
+            $this->cli->error('Missing class PLLWC_Admin_Products.');
+        }
+
 		$translations = pll_get_post_translations($post_id);
 
 		if(!empty($selected_languages)) {
@@ -60,7 +70,6 @@ class ProductCommand extends BaseCommand {
 		}
         
         $this->cli->log(sprintf('Syncing product %d to languages: %s', $post_id, implode(', ', array_keys($translations))));
-        $this->cli->log(print_r($wp_filter['pll_save_post'], true));
 
         do_action('pll_save_post', $post_id, $post, $translations);
         
