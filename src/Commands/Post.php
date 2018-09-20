@@ -401,11 +401,17 @@ class PostCommand extends BaseCommand {
             $this->cli->error('Post ID is not numeric: ' . $post_id);
         }
         
+        $post = get_post($post_id);
+        
+        if(!$post instanceof \WP_Post) {
+            $this->cli->error(sprintf('Post %d not found.', $post_id));
+        }
+        
         $pll_sync_post = new \PLL_Sync_Post($this->pll);
         
         $this->cli->log(sprintf('Syncing post %d to all languages.', $post_id));
         
-        $pll_sync_post->sync_posts($post_id, false);
+        $pll_sync_post->sync_posts($post_id, $post);
         
         $this->cli->success(sprintf('Post %d synced successfully.', $post_id));
     }
