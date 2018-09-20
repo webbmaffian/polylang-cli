@@ -69,7 +69,7 @@ class ProductCommand extends BaseCommand {
 			}
 		}
         
-        $this->cli->log(sprintf('Syncing product %d to languages: %s', $post_id, implode(', ', array_keys($translations))));
+        $this->cli->log(sprintf('Syncing product %d to languages: %s (%s)', $post_id, implode(', ', array_keys($translations)), implode(', ', $translations)));
 
         do_action('pll_save_post', $post_id, $post, $translations);
         
