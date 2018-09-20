@@ -30,6 +30,7 @@ class ProductCommand extends BaseCommand {
      *     $ wp pll product sync 23
      */
     public function sync( $args, $assoc_args ) {
+        global $wp_filter;
 
 		$post_id = array_shift($args);
 		$selected_languages = $args;
@@ -59,7 +60,8 @@ class ProductCommand extends BaseCommand {
 		}
         
         $this->cli->log(sprintf('Syncing product %d to languages: %s', $post_id, implode(', ', array_keys($translations))));
-        
+        $this->cli->log(print_r($wp_filter['pll_save_post'], true));
+
         do_action('pll_save_post', $post_id, $post, $translations);
         
         $this->cli->success(sprintf('Post %d synced successfully.', $post_id));
